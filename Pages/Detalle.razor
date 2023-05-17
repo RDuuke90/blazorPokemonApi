@@ -1,0 +1,21 @@
+@page "/detalle/{id}"
+@using Model;
+@using Util;
+@inject PokeClient client;
+
+<PageTitle>Detalle</PageTitle>
+
+<h1>Detalle del Pokemon</h1>
+<p>@pokemon.name</p>
+<img src="@pokemon.sprites?.front_default" title="@pokemon.name" class="item_pokemon--img" />
+
+@code {
+    [Parameter]
+    public string id {get; set;}
+
+    private Pokemon pokemon = new Pokemon();
+    protected override async Task OnInitializedAsync()
+    {
+        pokemon = await client.GetPokemon(id);
+    }
+}
